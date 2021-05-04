@@ -1,0 +1,7 @@
+- implemented the FSFT Buffer datatype with Henry for task 1
+- helped write the test cases for FSFT Buffer
+- Worked on WikiMediator with Henry and Sean
+- Helped write test cases for WikiMediator
+- Wrote some helper methods in WikiMediator
+- Helped write the specifications for various methods in WikiMediator
+- Helped write WikiMediatorServe and Client with Henry and Sean

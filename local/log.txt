@@ -1,0 +1,1 @@
+{"trendingCacheKeys":[],"trendingCacheTimes":[],"trendingHistoryKeys":[],"trendingFrequency":[],"searchHistoryKeys":[],"searchFrequency":[],"timeList":[],"peak":0}
