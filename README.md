@@ -144,19 +144,6 @@ The server should respond with the message:
 
 And then the server should stop accepting requests over the network and terminate after writing state to disk. This state should be read when a new instance of `WikiMediatorServer` is created and the data is available in the directory named `local`.
 
-## Task 5: Structured Queries
-
-The last part of this mini-project is to add support to `WikiMediator` for structured queries. Structured queries will allow a client to request, for example, pages that match criteria such as:
-
-- All pages returned by a search for "Barack Obama" that were updated by user "Thirsty4waters".
-- All pages that are in the category "Illinois state senators" **and** "HuffPost writers and columnists".
-
-To handle structured queries, a method with the following signature should be included in `WikiMediator`:
-
-```java
-List<String> executeQuery(String query)
-```
-
 **Grammar for Queries**
 
 - QUERY := get ITEM where CONDITION SORTED?
@@ -167,44 +154,6 @@ List<String> executeQuery(String query)
 - ITEM := page | author | category
 - SORTED := asc | desc
 - STRING := `'\\'' ( ~'\\'' | '\\'\\'' )* '\\''`
-
-**Notes about the grammar**
-
-- The ? symbol is used when a term occurs at most once. The SORTED term may not occur or it would occur at most once in a query.
-- The STRING term is fully described as a regex that matches string literals that are enclosed within ' (single quotes).
-- A condition may be a simple condition or a compound condition. If it is a compound condition then it will be enclosed with parentheses.
-
-**Notes about query evaluation**
-
-- A query is intended to return a list of `String`s that represents the results of the query.
-- You should return all items that satisfy the condition.
-   - `get page where category is 'Illinois State Senators'` would return a list of Wikipedia page titles in this category.
-   - `get author where (title is 'Barack Obama' or category is 'Illinois State Senators')` would return the list with the most recent contributor to the page with title 'Barack Obama' and for each page in the mentioned category.
-   - `get category where (author is 'CLCStudent' and (title is 'Barack Obama' or title is 'Naomi Klein'))` would return the categories of the pages that match both conditions.
-   - `get page where (author is 'AndrewOne' and author is 'Sylas')` would return an empty list because — for our purposes — the author is the most recent editor of a page.
-- Some queries may satisfy the grammar but may not yield meaningful results. You can handle these queries by returning an empty list.
-- Queries that are invalid (cannot be parsed) should result in an `InvalidQueryException`, which is a checked exception. If a query is made over the network (client-server model) then such invalid queries will lead to a `failed` operation.
-- When structured queries are made in the client-server model then the JSON string that represents the request will have `"type": "query"` and the field `query` will represent the query string.
-
-**Antlr and Gradle**
-
-If you use ANTLR for parser generation then you should include ANTLR as a Gradle dependency. You should place the ANTLR grammar file in the appropriate folder in your `src` directory and **you should not submit auto-generated code**.
-
-## Assessment Hints
-
-- You should write specs, rep invariants, abstraction functions, and thread-safety conditions.
-- You should test your code and achieve: 
-   - 90% lines of code coverage;
-   - 90% branch coverage.
-- Each task is worth one point.
-- An extra one point is for writing clean and modular code.
-- If tasks are functionally correct but the overall submission is lacking in details such as specs, RIs, AFs and thread-safety conditions or is lacking in test coverage then the grade will be lowered by up to one point.
-
-## Hints
-
-**JWiki**
-
-Some starter code is provided in the package `example` to help you with the `JWiki` API. You will, however, have to make changes to the `build.gradle` file to include [this library](https://github.com/fastily/jwiki) as a dependency.
 
 **Gson**
 
